@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_6fc333c34509e9ce2ef3e389dc734edb {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+    z-index: 9999; background-color: white; padding: 10px 20px;
+    border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    font-family: sans-serif; text-align:center;
+">
+    <b style="font-size:15px; color:#1f3b57;">Itinéraire de Théobald — Algorithme de Christofides</b><br>
+    <span style="font-size:12px; color:#555;">Distance totale : 3446 km · 20 villes</span>
+</div>
+    
+            <div class="folium-map" id="map_6fc333c34509e9ce2ef3e389dc734edb" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_6fc333c34509e9ce2ef3e389dc734edb = L.map(
+                "map_6fc333c34509e9ce2ef3e389dc734edb",
+                {
+                    center: [46.25697, 3.2122299999999995],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_cacaada1c221bb18697ad41a1b21f0fc = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_cacaada1c221bb18697ad41a1b21f0fc.addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var marker_60b4f433ab599c37e64d5091dd5105b0 = L.marker(
+                [48.8566, 2.3522],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_25a45ec78383995bad62a3619b9875db = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#e8b923;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e\u2605\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_60b4f433ab599c37e64d5091dd5105b0.bindTooltip(
+                `<div>
+                     Départ : Paris
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_60b4f433ab599c37e64d5091dd5105b0.setIcon(div_icon_25a45ec78383995bad62a3619b9875db);
+            
+    
+            var marker_4af1a059abb38ddeaca2a48a4ff8fe3e = L.marker(
+                [49.4944, 0.1079],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_f3cf490a31e8af5b95c85de4c38a6b21 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e2\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_4af1a059abb38ddeaca2a48a4ff8fe3e.bindTooltip(
+                `<div>
+                     2. Le Havre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4af1a059abb38ddeaca2a48a4ff8fe3e.setIcon(div_icon_f3cf490a31e8af5b95c85de4c38a6b21);
+            
+    
+            var marker_7a8076ed8d5ded595f1a2ace6566128a = L.marker(
+                [48.1173, -1.6778],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_ac0b5ff4887d152d3ef5ad13226fd17a = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e3\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_7a8076ed8d5ded595f1a2ace6566128a.bindTooltip(
+                `<div>
+                     3. Rennes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7a8076ed8d5ded595f1a2ace6566128a.setIcon(div_icon_ac0b5ff4887d152d3ef5ad13226fd17a);
+            
+    
+            var marker_8d7d6873ee0f8e444bf183f653a67a9c = L.marker(
+                [47.2184, -1.5536],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_109e71629db15ced81148e3b2ccc8483 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e4\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_8d7d6873ee0f8e444bf183f653a67a9c.bindTooltip(
+                `<div>
+                     4. Nantes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8d7d6873ee0f8e444bf183f653a67a9c.setIcon(div_icon_109e71629db15ced81148e3b2ccc8483);
+            
+    
+            var marker_f6b8115eec873fb5c6559b1d6f770458 = L.marker(
+                [47.4784, -0.5632],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_d0611281af6dd2259662a614428ea21c = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e5\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_f6b8115eec873fb5c6559b1d6f770458.bindTooltip(
+                `<div>
+                     5. Angers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f6b8115eec873fb5c6559b1d6f770458.setIcon(div_icon_d0611281af6dd2259662a614428ea21c);
+            
+    
+            var marker_8e1166b69de3c88368dbad5d6b316150 = L.marker(
+                [44.8378, -0.5792],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_c1e2ca65ce92c1a339edb601e4967778 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e6\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_8e1166b69de3c88368dbad5d6b316150.bindTooltip(
+                `<div>
+                     6. Bordeaux
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8e1166b69de3c88368dbad5d6b316150.setIcon(div_icon_c1e2ca65ce92c1a339edb601e4967778);
+            
+    
+            var marker_064d942fad053af75f8b0848dd1cb314 = L.marker(
+                [43.6047, 1.4442],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_0011e05d2e6806b6cbc00c2dca895aa3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e7\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_064d942fad053af75f8b0848dd1cb314.bindTooltip(
+                `<div>
+                     7. Toulouse
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_064d942fad053af75f8b0848dd1cb314.setIcon(div_icon_0011e05d2e6806b6cbc00c2dca895aa3);
+            
+    
+            var marker_53c2ab9bca4fe1e53d9d3b6e6765b166 = L.marker(
+                [43.6119, 3.8772],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_5fd95c6ba2e5f2d65bc8e6a471e6b620 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e8\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_53c2ab9bca4fe1e53d9d3b6e6765b166.bindTooltip(
+                `<div>
+                     8. Montpellier
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_53c2ab9bca4fe1e53d9d3b6e6765b166.setIcon(div_icon_5fd95c6ba2e5f2d65bc8e6a471e6b620);
+            
+    
+            var marker_176b5239af85a59ca995f2ddc454fa27 = L.marker(
+                [43.8367, 4.3601],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_42ed3abe7ce031c1fd1720f3aa5843cb = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e9\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_176b5239af85a59ca995f2ddc454fa27.bindTooltip(
+                `<div>
+                     9. Nîmes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_176b5239af85a59ca995f2ddc454fa27.setIcon(div_icon_42ed3abe7ce031c1fd1720f3aa5843cb);
+            
+    
+            var marker_45a57f2eba44eeec665fcfea6c136c82 = L.marker(
+                [43.7102, 7.262],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_30d140380993dab732a23075e19d056b = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e10\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_45a57f2eba44eeec665fcfea6c136c82.bindTooltip(
+                `<div>
+                     10. Nice
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_45a57f2eba44eeec665fcfea6c136c82.setIcon(div_icon_30d140380993dab732a23075e19d056b);
+            
+    
+            var marker_13c8fc35b14483e4b5283cd60bbce0f8 = L.marker(
+                [43.1242, 5.928],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_cbe1c7e9310098cd400c519d4dce06f3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e11\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_13c8fc35b14483e4b5283cd60bbce0f8.bindTooltip(
+                `<div>
+                     11. Toulon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_13c8fc35b14483e4b5283cd60bbce0f8.setIcon(div_icon_cbe1c7e9310098cd400c519d4dce06f3);
+            
+    
+            var marker_bf33be981d978f4318aa1d65de782ba8 = L.marker(
+                [43.2965, 5.3698],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_eebcbe05bce1e2b73a12afad500dbb0c = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e12\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_bf33be981d978f4318aa1d65de782ba8.bindTooltip(
+                `<div>
+                     12. Marseille
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bf33be981d978f4318aa1d65de782ba8.setIcon(div_icon_eebcbe05bce1e2b73a12afad500dbb0c);
+            
+    
+            var marker_ed9a60caaee7e97e1e4aafa19c5ea742 = L.marker(
+                [45.4397, 4.3872],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_7cfa249d9414a6e310bcde94886ee46b = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e13\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_ed9a60caaee7e97e1e4aafa19c5ea742.bindTooltip(
+                `<div>
+                     13. Saint-Étienne
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ed9a60caaee7e97e1e4aafa19c5ea742.setIcon(div_icon_7cfa249d9414a6e310bcde94886ee46b);
+            
+    
+            var marker_4ca001d19ec4a5969f2880eafa717ba7 = L.marker(
+                [45.7772, 3.087],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_265ca8a54d11b1e1c88950915c0dde48 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e14\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_4ca001d19ec4a5969f2880eafa717ba7.bindTooltip(
+                `<div>
+                     14. Clermont-Ferrand
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4ca001d19ec4a5969f2880eafa717ba7.setIcon(div_icon_265ca8a54d11b1e1c88950915c0dde48);
+            
+    
+            var marker_04217c9ff017feecf4a998869986f38d = L.marker(
+                [45.764, 4.8357],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_76a36a416d4551cb1663b43f82b832a0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e15\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_04217c9ff017feecf4a998869986f38d.bindTooltip(
+                `<div>
+                     15. Lyon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_04217c9ff017feecf4a998869986f38d.setIcon(div_icon_76a36a416d4551cb1663b43f82b832a0);
+            
+    
+            var marker_ce252c0b5ec9cb453fb3ceb36bd89794 = L.marker(
+                [45.1885, 5.7245],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_309d3e062ee08e7895c2fcf0d6f26b48 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e16\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_ce252c0b5ec9cb453fb3ceb36bd89794.bindTooltip(
+                `<div>
+                     16. Grenoble
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ce252c0b5ec9cb453fb3ceb36bd89794.setIcon(div_icon_309d3e062ee08e7895c2fcf0d6f26b48);
+            
+    
+            var marker_5ba4ca65fd6ad5217a80e90e755f205f = L.marker(
+                [47.322, 5.0415],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_bc36925ad8ee9330b81301db6d8c9781 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e17\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_5ba4ca65fd6ad5217a80e90e755f205f.bindTooltip(
+                `<div>
+                     17. Dijon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5ba4ca65fd6ad5217a80e90e755f205f.setIcon(div_icon_bc36925ad8ee9330b81301db6d8c9781);
+            
+    
+            var marker_f686ea42bf65cc18ba399a3f8c40e320 = L.marker(
+                [48.5734, 7.7521],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_61670fbbe82771e3e197fdbb69179e90 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e18\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_f686ea42bf65cc18ba399a3f8c40e320.bindTooltip(
+                `<div>
+                     18. Strasbourg
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f686ea42bf65cc18ba399a3f8c40e320.setIcon(div_icon_61670fbbe82771e3e197fdbb69179e90);
+            
+    
+            var marker_cdebd79aadf63d13113bf4b3a8f161e0 = L.marker(
+                [49.2583, 4.0317],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_0ea3cb129d636c81d3e388436081aca1 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e19\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_cdebd79aadf63d13113bf4b3a8f161e0.bindTooltip(
+                `<div>
+                     19. Reims
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cdebd79aadf63d13113bf4b3a8f161e0.setIcon(div_icon_0ea3cb129d636c81d3e388436081aca1);
+            
+    
+            var marker_380549645756cb4a7c26641a0c91c04b = L.marker(
+                [50.6292, 3.0573],
+                {
+}
+            ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            var div_icon_9ba27a88cb5b5021013e8b7b5416ef04 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                background-color:#1f3b57;\n                color:white;\n                border-radius:50%;\n                width:28px;height:28px;\n                display:flex;align-items:center;justify-content:center;\n                font-size:12px;font-weight:bold;\n                border:2px solid white;\n                box-shadow:0 1px 4px rgba(0,0,0,0.4);\n            \"\u003e20\u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+            marker_380549645756cb4a7c26641a0c91c04b.bindTooltip(
+                `<div>
+                     20. Lille
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_380549645756cb4a7c26641a0c91c04b.setIcon(div_icon_9ba27a88cb5b5021013e8b7b5416ef04);
+            
+    
+            ant_path_cd6d5a034c95320719627b6a4303284e = L.polyline.antPath(
+              [[48.8566, 2.3522], [49.4944, 0.1079], [48.1173, -1.6778], [47.2184, -1.5536], [47.4784, -0.5632], [44.8378, -0.5792], [43.6047, 1.4442], [43.6119, 3.8772], [43.8367, 4.3601], [43.7102, 7.262], [43.1242, 5.928], [43.2965, 5.3698], [45.4397, 4.3872], [45.7772, 3.087], [45.764, 4.8357], [45.1885, 5.7245], [47.322, 5.0415], [48.5734, 7.7521], [49.2583, 4.0317], [50.6292, 3.0573], [48.8566, 2.3522]],
+              {
+  "stroke": true,
+  "color": "#c0392b",
+  "weight": 3.5,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+12,
+20,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#c0392b",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+            map_6fc333c34509e9ce2ef3e389dc734edb.fitBounds(
+                [[48.8566, 2.3522], [49.4944, 0.1079], [48.1173, -1.6778], [47.2184, -1.5536], [47.4784, -0.5632], [44.8378, -0.5792], [43.6047, 1.4442], [43.6119, 3.8772], [43.8367, 4.3601], [43.7102, 7.262], [43.1242, 5.928], [43.2965, 5.3698], [45.4397, 4.3872], [45.7772, 3.087], [45.764, 4.8357], [45.1885, 5.7245], [47.322, 5.0415], [48.5734, 7.7521], [49.2583, 4.0317], [50.6292, 3.0573], [48.8566, 2.3522]],
+                {}
+            );
+        
+    
+            tile_layer_cacaada1c221bb18697ad41a1b21f0fc.addTo(map_6fc333c34509e9ce2ef3e389dc734edb);
+        
+    
+                marker_60b4f433ab599c37e64d5091dd5105b0.setIcon(div_icon_25a45ec78383995bad62a3619b9875db);
+            
+    
+                marker_4af1a059abb38ddeaca2a48a4ff8fe3e.setIcon(div_icon_f3cf490a31e8af5b95c85de4c38a6b21);
+            
+    
+                marker_7a8076ed8d5ded595f1a2ace6566128a.setIcon(div_icon_ac0b5ff4887d152d3ef5ad13226fd17a);
+            
+    
+                marker_8d7d6873ee0f8e444bf183f653a67a9c.setIcon(div_icon_109e71629db15ced81148e3b2ccc8483);
+            
+    
+                marker_f6b8115eec873fb5c6559b1d6f770458.setIcon(div_icon_d0611281af6dd2259662a614428ea21c);
+            
+    
+                marker_8e1166b69de3c88368dbad5d6b316150.setIcon(div_icon_c1e2ca65ce92c1a339edb601e4967778);
+            
+    
+                marker_064d942fad053af75f8b0848dd1cb314.setIcon(div_icon_0011e05d2e6806b6cbc00c2dca895aa3);
+            
+    
+                marker_53c2ab9bca4fe1e53d9d3b6e6765b166.setIcon(div_icon_5fd95c6ba2e5f2d65bc8e6a471e6b620);
+            
+    
+                marker_176b5239af85a59ca995f2ddc454fa27.setIcon(div_icon_42ed3abe7ce031c1fd1720f3aa5843cb);
+            
+    
+                marker_45a57f2eba44eeec665fcfea6c136c82.setIcon(div_icon_30d140380993dab732a23075e19d056b);
+            
+    
+                marker_13c8fc35b14483e4b5283cd60bbce0f8.setIcon(div_icon_cbe1c7e9310098cd400c519d4dce06f3);
+            
+    
+                marker_bf33be981d978f4318aa1d65de782ba8.setIcon(div_icon_eebcbe05bce1e2b73a12afad500dbb0c);
+            
+    
+                marker_ed9a60caaee7e97e1e4aafa19c5ea742.setIcon(div_icon_7cfa249d9414a6e310bcde94886ee46b);
+            
+    
+                marker_4ca001d19ec4a5969f2880eafa717ba7.setIcon(div_icon_265ca8a54d11b1e1c88950915c0dde48);
+            
+    
+                marker_04217c9ff017feecf4a998869986f38d.setIcon(div_icon_76a36a416d4551cb1663b43f82b832a0);
+            
+    
+                marker_ce252c0b5ec9cb453fb3ceb36bd89794.setIcon(div_icon_309d3e062ee08e7895c2fcf0d6f26b48);
+            
+    
+                marker_5ba4ca65fd6ad5217a80e90e755f205f.setIcon(div_icon_bc36925ad8ee9330b81301db6d8c9781);
+            
+    
+                marker_f686ea42bf65cc18ba399a3f8c40e320.setIcon(div_icon_61670fbbe82771e3e197fdbb69179e90);
+            
+    
+                marker_cdebd79aadf63d13113bf4b3a8f161e0.setIcon(div_icon_0ea3cb129d636c81d3e388436081aca1);
+            
+    
+                marker_380549645756cb4a7c26641a0c91c04b.setIcon(div_icon_9ba27a88cb5b5021013e8b7b5416ef04);
+            
+</script>
+</html>
